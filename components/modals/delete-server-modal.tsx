@@ -3,13 +3,15 @@
 import { useModal } from "@/hooks/use-modal-store";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
-  DialogFooter,
-} from "@/components/ui/dialog";
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios";
@@ -41,40 +43,28 @@ export const DeleteServerModal = () => {
   };
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
-        <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl font-bold">
-            Delete server?
-          </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+    <AlertDialog open={isModalOpen} onOpenChange={onClose}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete server?</AlertDialogTitle>
+          <AlertDialogDescription>
             Are you sure you want to delete{" "}
             <span className="font-semibold text-indigo-500">
               {server?.name}
             </span>
             ?<br />
             The server will be permanently deleted.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="bg-gray-100 px-6 py-4">
-          <div className="flex items-center justify-between w-full">
-            <Button
-              disabled={isLoading}
-              onClick={() => onClose()}
-              variant="ghost"
-            >
-              Go back
-            </Button>
-            <Button
-              disabled={isLoading}
-              onClick={() => onClick()}
-              variant="destructive"
-            >
-              Confirm
-            </Button>
-          </div>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isLoading} onClick={() => onClose()}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction disabled={isLoading} onClick={() => onClick()}>
+            Confirm
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

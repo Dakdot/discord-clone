@@ -37,6 +37,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
+import { Hash } from "lucide-react";
 
 const formSchema = z.object({
   name: z
@@ -147,15 +148,9 @@ export const CreateChannelModal = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {Object.values(ChannelType).map((type) => (
-                          <SelectItem
-                            key={type}
-                            value={type}
-                            className="capitalize"
-                          >
-                            {type.toLowerCase()}
-                          </SelectItem>
-                        ))}
+                        <SelectItem value="TEXT">Text</SelectItem>
+                        <SelectItem value="AUDIO">Voice</SelectItem>
+                        <SelectItem value="VIDEO">Video</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
