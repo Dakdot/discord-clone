@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { generateInviteCode } from "@/lib/generate-invite-code";
 
 export async function PATCH(
   req: Request,
@@ -17,7 +18,7 @@ export async function PATCH(
     const server = await db.server.update({
       where: { id: params.serverId, profileId: profile.id },
       data: {
-        inviteCode: uuidv4(),
+        inviteCode: generateInviteCode(),
       },
     });
     return NextResponse.json(server);

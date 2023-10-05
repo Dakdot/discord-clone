@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { MemberRole } from "@prisma/client";
+import { generateInviteCode } from "@/lib/generate-invite-code";
 
 export async function POST(req: Request) {
   try {
@@ -18,7 +19,7 @@ export async function POST(req: Request) {
         profileId: profile.id,
         name,
         imageUrl,
-        inviteCode: uuidv4(),
+        inviteCode: generateInviteCode(),
         channels: {
           create: [{ name: "general", profileId: profile.id }],
         },
