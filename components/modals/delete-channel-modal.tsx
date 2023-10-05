@@ -12,29 +12,35 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import qs from "query-string";
 
-export const DeleteServerModal = () => {
+export const DeleteChannelModal = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "deleteServer";
-  const { server } = data;
+  const isModalOpen = isOpen && type === "deleteChannel";
+  const { server, channel } = data;
 
   const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async () => {
     try {
       setIsLoading(true);
+      const url = qs.stringifyUrl({
+        url: `/api/channels/${channel?.id}`,
+        query: {
+          serverId: server?.id,
+        },
+      });
 
-      await axios.delete(`/api/servers/${server?.id}`);
+      await axios.delete(url);
 
       onClose();
       router.refresh();
-      router.push("/");
+      router.push(`/servers/${server?.id}`);
     } catch (err) {
       console.error(err);
     } finally {
@@ -46,13 +52,13 @@ export const DeleteServerModal = () => {
     <AlertDialog open={isModalOpen} onOpenChange={onClose}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete server?</AlertDialogTitle>
+          <AlertDialogTitle>Delete channel?</AlertDialogTitle>
           <AlertDialogDescription>
             Are you sure you want to delete{" "}
             <span className="font-semibold text-indigo-500">
-              {server?.name}
+              #{channel?.name}
             </span>
-            ? All conversations and media on this server will be permanently
+            ? The channel and its associated conversations will be permanently
             deleted.
           </AlertDialogDescription>
         </AlertDialogHeader>
