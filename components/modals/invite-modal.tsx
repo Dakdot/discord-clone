@@ -16,8 +16,10 @@ import { Check, ClipboardCopy, Info, RefreshCw } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
 import { useState } from "react";
 import axios from "axios";
-import { DotWave } from "@uiball/loaders";
+import { ring } from "ldrs";
 import { cn } from "@/lib/utils";
+
+ring.register();
 
 export const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
@@ -110,7 +112,7 @@ export const InviteModal = () => {
             Generate a new code
             {isLoading ? (
               <div className="ml-2">
-                <DotWave size={24} />
+                <l-ring size={24} />
               </div>
             ) : (
               <RefreshCw className="w-4 h-4 ml-2" />
