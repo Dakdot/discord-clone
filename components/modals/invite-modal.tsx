@@ -16,10 +16,8 @@ import { Check, ClipboardCopy, Info, RefreshCw } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
 import { useState } from "react";
 import axios from "axios";
-import { ring } from "ldrs";
 import { cn } from "@/lib/utils";
-
-ring.register();
+import { RotatingLines } from "react-loader-spinner";
 
 export const InviteModal = () => {
   const { onOpen, isOpen, onClose, type, data } = useModal();
@@ -112,7 +110,7 @@ export const InviteModal = () => {
             Generate a new code
             {isLoading ? (
               <div className="ml-2">
-                <l-ring size={24} />
+                <RotatingLines width="16" strokeColor="grey" />
               </div>
             ) : (
               <RefreshCw className="w-4 h-4 ml-2" />

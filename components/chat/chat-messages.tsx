@@ -6,9 +6,11 @@ import { Member, Message, Profile } from "@prisma/client";
 import { ChatWelcome } from "./chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 
-import { lineSpinner } from "ldrs";
 import { ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
+
+import { RotatingLines } from "react-loader-spinner";
+import { tr } from "date-fns/locale";
 
 const DATE_FORMAT = "d MMM yyyy HH:mm";
 
@@ -41,8 +43,6 @@ export const ChatMessages = ({
   paramValue,
   type,
 }: ChatMessagesProps) => {
-  lineSpinner.register();
-
   const queryKey = `chat:${chatId}`;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
@@ -56,7 +56,7 @@ export const ChatMessages = ({
   if (status === "pending") {
     return (
       <div className="flex flex-col flex-1 justify-center items-center">
-        <l-line-spinner size="30" stroke="2" speed="1" color="white" />
+        <RotatingLines width="24" strokeColor="grey" strokeWidth="3" />
         <p className="text-xs text-zinc-500 dark:text-zinc-400 my-4">
           Loading messages...
         </p>
