@@ -22,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 
 import { useRouter, useParams } from "next/navigation";
+import emojiRegex from "emoji-regex";
+import { tr } from "date-fns/locale";
 
 interface ChatItemProps {
   id: string;
@@ -125,6 +127,12 @@ export const ChatItem = ({
   const isPDF = fileType === "pdf" && fileUrl;
   const isImage = fileType !== "pdf" && fileUrl;
 
+  const isOnlyEmoji = () => {
+    const regex = emojiRegex();
+    if (content.replace(regex, "").length === 0) return true;
+    else return false;
+  };
+
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">
       <div className="group flex gap-x-2 items-start w-full">
@@ -184,7 +192,8 @@ export const ChatItem = ({
               className={cn(
                 "text-sm text-zinc-600 dark:text-zinc-300 select-text",
                 deleted &&
-                  "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1"
+                  "italic text-zinc-500 dark:text-zinc-400 text-xs mt-1",
+                isOnlyEmoji() && "text-4xl"
               )}
             >
               {content}

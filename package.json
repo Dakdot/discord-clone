@@ -37,6 +37,7 @@
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
     "emoji-mart": "^5.5.2",
+    "emoji-regex": "^10.3.0",
     "eslint": "^8.55.0",
     "eslint-config-next": "13.4.19",
     "ldrs": "^1.0.1",
